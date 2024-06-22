@@ -26,9 +26,9 @@ a{right:40px;position:absolute;text-decoration:none}\
 ";
 
 static const char settingTemplate[]  PROGMEM= "\
-" MSG_INIT_HOUR " <input name='" HOUR_PARAM_NAME "' value='%d' type='number' min=0 max=23 size=4/></br>\
-" MSG_INIT_QUANTITY " <input name='" QUANTITY_PARAM_NAME "' value='%d' type='number' min=0 max=5000 size=4/></br>\
-" MSG_INIT_ACTIVE " <input name='" ACTIVE_PARAM_NAME "' type='checkbox' %s/></br><hr>\
+" MSG_INIT_HOUR " <input name='p_h_%d' value='%d' type='number' min=0 max=23 size=4/></br>\
+" MSG_INIT_QUANTITY " <input name='p_q_%d' value='%d' type='number' min=0 max=5000 size=4/></br>\
+" MSG_INIT_ACTIVE " <input name='p_a_%d' type='checkbox' %s/></br><hr>\
 ";
 
 static const  char settingsEndingPage[] PROGMEM ="\

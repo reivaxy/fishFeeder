@@ -19,14 +19,14 @@ FeederConfigClass::FeederConfigClass(unsigned int version, const char* name):Mod
  * NB: version and name are handled by base class 
  */
 void FeederConfigClass::initFromDefault() {
-  Serial.println("Reset iotFeeder Config to defaults");
+  Debug("Reset iotFeeder Config to defaults");
   ModuleConfigClass::initFromDefault(); // handles version and name init, ssid and pwd
   for (uint8_t p = 0 ; p < PROGRAM_COUNT; p ++) {
     FeederProgram *fp = &(_getDataPtr()->programs[p]);
     fp->active = false;
     fp->hour = 0;
     fp->quantity = 0;
-    Serial.printf("fp config init default 2 - %d hour:%d\n", p, fp->hour);
+    Debug("fp config init default 2 - %d hour:%d\n", p, fp->hour);
 
   }
   _getDataPtr()->irThreshold = 3;
@@ -34,7 +34,7 @@ void FeederConfigClass::initFromDefault() {
 }
 
 const char* FeederConfigClass::getDefaultUIClassName() {
-  Serial.println("FeederConfigClass::getDefaultUIClassName");
+  Debug("FeederConfigClass::getDefaultUIClassName");
   return "FeederUIClass";
 }
 

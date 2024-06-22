@@ -14,7 +14,7 @@
 #define CONFIG_VERSION 2
 #define MODULE_NAME "Feeder"
 
-#define PROGRAM_COUNT 6
+#define PROGRAM_COUNT 3
 
 // Add specific config fields to the generic module config structure
 struct FeederConfigStruct:ModuleConfigStruct {

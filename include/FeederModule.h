@@ -12,6 +12,16 @@
  
 #define MAX_STATUS_LENGTH 150
 
+// Static strings stored in PROGMEM to minimize RAM fragmentation and save a little space
+static const char HOUR_PARAM_NAME_FORMAT[] PROGMEM = "p_h_%d";
+static const char QUANTITY_PARAM_NAME_FORMAT[] PROGMEM = "p_q_%d";
+static const char ACTIVE_PARAM_NAME_FORMAT[] PROGMEM = "p_a_%d";
+static const char HOUR_FORMAT[] PROGMEM = "%02d ";
+static const char LAST_STATUS_FORMAT[] PROGMEM = "%s: %s %ld ";
+static const char DISPENSING_DISPLAY_FORMAT[] PROGMEM = "%s %02d:%02d, %s: %ld\n";
+
+static const char CUSTOM_FORM_INIT_PAGE_FORMAT[] PROGMEM = "%s <br/><input name='irThreshold' type='number' min='0' max='100' value='%d'/><br/>";
+
 class FeederModule:public XIOTModule {
 public:
   FeederModule(FeederConfigClass* config, int displayAddr, int displaySda, int displayScl, int forwardPin, int reversePin);
@@ -23,7 +33,9 @@ public:
   void feedOnce();
   void logProgramedDispensing(uint16_t quantity);
   void setCustomModuleRecordFields(JsonObject *jsonBufferRoot) override;
-  void dispensingFailed(boolean transientDisplay);
+  void dispensingFailed(bool transientDisplay);
+  
+  long checkQuantity();
   
   char *customFormInitPage() override;
   int customSaveConfig() override;
@@ -41,11 +53,9 @@ public:
 
   bool _manualForward = false;
   bool _manualReverse = false;
-  bool _automaticDispensing = false;
-  bool _oneTimeDispensing = false;
+  bool _programRunning = false;
 
-  bool mustWarnNoFoodDetected = false;
-  int16_t lastDispensedQuantity = 0;
+  bool foodDetected = false;
 
   char lastStatus[MAX_STATUS_LENGTH + 1];
 
